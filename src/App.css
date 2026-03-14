@@ -1,0 +1,98 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+div {
+  display: block;
+  unicode-bidi: isolate;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2em;
+  height: 100vh;
+}
+.container-img {
+  height: 300px;
+}
+
+.imgPic {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+img {
+  overflow-clip-margin: content-box;
+  overflow: clip;
+}
+
+.underline {
+  border-bottom: 2px solid black;
+}
+
+.word-letter-underline {
+  width: 2rem;
+  height: 2rem;
+  font-size: 2rem;
+}
+
+.word-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2rem;
+  gap: 1rem;
+  width: 100%;
+}
+
+.letter {
+  all: unset;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.5rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+.letter:disabled {
+  background-color: #e0e0e0;
+  color: #999;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.letters-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+  height: 2rem;
+  gap: 1rem;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.word-letter-wrong {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2rem;
+  gap: 1rem;
+  width: 2rem;
+  height: 2rem;
+  font-size: 2rem;
+  color: red;
+}
+
+h2 {
+  margin-top: 20px;
+}
