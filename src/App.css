@@ -81,18 +81,6 @@ img {
   margin: 0 auto;
 }
 
-.word-letter-wrong {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 2rem;
-  gap: 1rem;
-  width: 2rem;
-  height: 2rem;
-  font-size: 2rem;
-  color: red;
-}
-
 h2 {
   margin-top: 20px;
 }

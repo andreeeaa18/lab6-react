@@ -3,6 +3,9 @@ import { useState } from "react";
 import { letters } from "./constants/letters";
 import { stages } from "./constants/stages";
 import { words } from "./constants/words";
+import Letters from "./Letters";
+import TryAgainButton from "./TryAgainButton";
+import IsWon from "./IsWon";
 
 function App() {
   const randomIndex = words[Math.floor(Math.random() * words.length)];
@@ -19,7 +22,8 @@ function App() {
     .join("");
 
   const isWon = displayedWord === randomWord;
-  const isGameOver = selectedLetters.length > stages.length || isWon;
+  const isLost = currentStage >= stages.length - 1;
+  const isGameOver = isLost || isWon;
 
   function letterClick(letter) {
     if (selectedLetters.includes(letter)) {
@@ -45,35 +49,18 @@ function App() {
         <h2> {isGameOver ? (isWon ? "You won!" : "You lost!") : ""}</h2>
         <div className="container-img">
           <img className="imgPic" src={stages[currentStage]}></img>
+          {console.log(currentStage)}
         </div>
 
         {isGameOver ? (
           isWon ? (
-            <div className="word-container">
-              {word.split("").map((letter, idx) => (
-                <span
-                  key={idx}
-                  className="word-letter-underline"
-                  style={{ color: "green" }}
-                >
-                  {letter}
-                </span>
-              ))}
-            </div>
+            <IsWon word={word} selectedLetters={selectedLetters} isWon={true} />
           ) : (
-            <div className="word-container">
-              {word.split("").map((letter, idx) => (
-                <span
-                  key={idx}
-                  className="word-letter-underline"
-                  style={{
-                    color: selectedLetters.includes(letter) ? "black" : "red",
-                  }}
-                >
-                  {letter}
-                </span>
-              ))}
-            </div>
+            <IsWon
+              word={word}
+              selectedLetters={selectedLetters}
+              isWon={false}
+            />
           )
         ) : (
           <div className="word-container">
@@ -86,24 +73,12 @@ function App() {
         )}
 
         {isGameOver ? (
-          <div className="letters-container">
-            <button className="letter" onClick={tryAgain}>
-              Try Again
-            </button>
-          </div>
+          <TryAgainButton tryAgain={tryAgain} />
         ) : (
-          <div className="letters-container">
-            {letters.map((letter, idx) => (
-              <button
-                key={idx}
-                className="letter"
-                onClick={() => letterClick(letter)}
-                disabled={selectedLetters.includes(letter)}
-              >
-                {letter}
-              </button>
-            ))}
-          </div>
+          <Letters
+            selectedLetters={selectedLetters}
+            letterClick={letterClick}
+          />
         )}
       </div>
     </>
