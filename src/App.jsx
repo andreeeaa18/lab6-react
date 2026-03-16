@@ -1,16 +1,19 @@
 import "./App.css";
 import { useState } from "react";
-import { letters } from "./constants/letters";
 import { stages } from "./constants/stages";
 import { words } from "./constants/words";
 import Letters from "./Letters";
 import TryAgainButton from "./TryAgainButton";
 import IsWon from "./IsWon";
 
-function App() {
-  const randomIndex = words[Math.floor(Math.random() * words.length)];
+function getRandomWord() {
+  const randomObtainedWord = Math.floor(Math.random() * words.length);
+  console.log("Random word:", words[randomObtainedWord]);
+  return words[randomObtainedWord];
+}
 
-  const [randomWord, setRandomWord] = useState(randomIndex);
+function App() {
+  const [randomWord, setRandomWord] = useState(getRandomWord);
   const [selectedLetters, setSelectedLetters] = useState([]);
   const [currentStage, setCurrentStage] = useState(0);
 
@@ -22,8 +25,11 @@ function App() {
     .join("");
 
   const isWon = displayedWord === randomWord;
-  const isLost = currentStage >= stages.length - 1;
-  const isGameOver = isLost || isWon;
+
+  const wrongGuesses = selectedLetters.filter(
+    (letter) => !randomWord.includes(letter),
+  ).length;
+  const isGameOver = wrongGuesses >= stages.length - 1 || isWon;
 
   function letterClick(letter) {
     if (selectedLetters.includes(letter)) {
@@ -38,7 +44,7 @@ function App() {
   }
 
   function tryAgain() {
-    setRandomWord(words[Math.floor(Math.random() * words.length)]);
+    setRandomWord(getRandomWord);
     setSelectedLetters([]);
     setCurrentStage(0);
   }
